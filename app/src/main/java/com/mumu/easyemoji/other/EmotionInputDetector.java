@@ -116,7 +116,6 @@ public class EmotionInputDetector {
     }
 
     public boolean interceptBackPress() {
-        // TODO: 15/11/2 change this method's name
         mEmojiView.setChecked(!mEmojiView.isChecked());
         if (mEmotionLayout.isShown()) {
             hideEmotionLayout(false);
