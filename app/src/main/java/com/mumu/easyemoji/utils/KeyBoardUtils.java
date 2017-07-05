@@ -22,8 +22,8 @@ public class KeyBoardUtils {
     /**
      * 强制隐藏输入法键盘
      */
-    public static void hideInput(Context context,View view){
-        InputMethodManager inputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
+//    public static void hideInput(Context context,View view){
+//        InputMethodManager inputMethodManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//    }
 }
