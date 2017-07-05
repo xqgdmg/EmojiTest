@@ -53,6 +53,7 @@ public class SingleEmotionActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         mCircleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
 
+         // 绑定
         mDetector = EmotionInputDetector.with(this)
                 .bindSendButton(mSendButton)
                 .bindToEditText(mInputContainer)
