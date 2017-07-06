@@ -14,6 +14,7 @@
             android:windowSoftInputMode="adjustResize">
 
         </activity>
+
         <activity android:name=".activity.SingleEmotionActivity">
 
         </activity>

@@ -24,16 +24,16 @@ import com.mumu.easyemoji.R;
 
 public class SingleEmotionActivity extends AppCompatActivity {
 
-    private CheckBox mEmoJiView;
-    private EditText mInputContainer;
-    private LinearLayout mEmoJiContainer;
-    private ListView mChatContent;
+    private CheckBox mCbEmoJiView;
+    private EditText mEtInputContainer;
+    private LinearLayout mLlEmoJiContainer;
+    private ListView mLvChatContent;
     private EmotionInputDetector mDetector;
     private CircleIndicator mCircleIndicator;
 
 
     private Context mContext;
-    private Button mSendButton;
+    private Button mBtnSendButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,35 +45,37 @@ public class SingleEmotionActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mChatContent = (ListView) findViewById(R.id.listView_Content);
-        mEmoJiView = (CheckBox) findViewById(R.id.cb_smile);
-        mInputContainer = (EditText) findViewById(R.id.et_input_container);
-        mEmoJiContainer = (LinearLayout) findViewById(R.id.ll_face_container);
-        mSendButton = (Button) findViewById(R.id.btn_send);
+        mLvChatContent = (ListView) findViewById(R.id.listView_Content);
+        mCbEmoJiView = (CheckBox) findViewById(R.id.cb_smile);
+        mEtInputContainer = (EditText) findViewById(R.id.et_input_container);
+        mLlEmoJiContainer = (LinearLayout) findViewById(R.id.ll_face_container);
+        mBtnSendButton = (Button) findViewById(R.id.btn_send);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         mCircleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
 
          // 绑定
-        mDetector = EmotionInputDetector.with(this)
-                .bindSendButton(mSendButton)
-                .bindToEditText(mInputContainer)
-                .setEmotionView(mEmoJiContainer)
-                .bindToContent(mChatContent)
-                .bindToEmotionButton(mEmoJiView);
+        mDetector = EmotionInputDetector.with(this) // 初始化
+                .bindSendButton(mBtnSendButton) // 发送按钮
+                .bindToEditText(mEtInputContainer) // 消息输入框
+                .setEmotionView(mLlEmoJiContainer) // 表情 ViewPager 上层的 LinearLayout
+                .bindToContent(mLvChatContent) // 聊天消息 lv
+                .bindToEmotionButton(mCbEmoJiView); // 表情按钮
 
-        EmoJiHelper emojiHelper = new EmoJiHelper(1, mContext, mInputContainer);
+        EmoJiHelper emojiHelper = new EmoJiHelper(1, mContext, mEtInputContainer);
         EmoJiContainerAdapter mAdapter = new EmoJiContainerAdapter(emojiHelper.getPagers());
         viewPager.setAdapter(mAdapter);
         mCircleIndicator.setViewPager(viewPager);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        KeyBoardUtils.toggleInput(mContext);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        KeyBoardUtils.toggleInput(mContext); // 这个没有什么意义？
+//    }
 
-
+    /*
+     * 拦截返回键，收起键盘
+     */
     @Override
     public void onBackPressed() {
         if (!mDetector.interceptBackPress()) {

@@ -32,7 +32,7 @@ public class EmoJiHelper {
         this.mContext = mContext;
         this.et_input_container = et_input;
         this.type = type;
-        this.emojiResList = EmoJiUtils.getResList(type);
+        this.emojiResList = EmoJiUtils.getResTitleList(type);
         getPagers();
     }
 
@@ -57,12 +57,6 @@ public class EmoJiHelper {
         else
             emojiPageList = emojiResList.subList((position - 1) * EMOJI_PAGE_COUNT, EMOJI_PAGE_COUNT * position);
         mEmoJiList.addAll(emojiPageList);
-        //添加删除表情
-//        if (position == mPageNum) {
-//            int res = EMOJI_PAGE_COUNT - emojiPageList.size();
-//            for (int i = 0; i < res; i++)
-//                mEmoJiList.add("[空格]");
-//        }
         mEmoJiList.add("[删除]");
 
         final EmoJiAdapter mEmoJiAdapter = new EmoJiAdapter(type, mContext, position, mEmoJiList);
@@ -70,9 +64,9 @@ public class EmoJiHelper {
         eg_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionIndex, long id) {
-                String fileName = mEmoJiAdapter.getItem(positionIndex);
-                if (fileName != "[删除]") { // 不是删除键，显示表情
-                    showEmoJi(fileName);
+                String titleName = mEmoJiAdapter.getItem(positionIndex); // 获取到表情标题
+                if ( !"[删除]".equals(titleName)) { // 不是删除键，显示表情
+                    showEmoJi(titleName);
                 } else { // 删除文字或者表情
                     deleteContent();
                 }
@@ -88,10 +82,14 @@ public class EmoJiHelper {
      */
     private void showEmoJi(String fileName) {
         int selectionStart = et_input_container.getSelectionStart();
+
         String body = et_input_container.getText().toString();
         StringBuilder stringBuilder = new StringBuilder(body);
         stringBuilder.insert(selectionStart, fileName);
-        et_input_container.setText(EmoJiUtils.parseEmoJi(type, mContext, stringBuilder.toString()));
+
+        et_input_container.setText(
+                EmoJiUtils.parseEmoJi(type, mContext, stringBuilder.toString())
+        );
         et_input_container.setSelection(selectionStart + fileName.length());
     }
 
@@ -105,22 +103,22 @@ public class EmoJiHelper {
                 String body = et_input_container.getText().toString();
                 String lastStr = body.substring(selectionStart - 1, selectionStart);//获取最后一个字符
                 if (lastStr.equals("]")) {//表情
-                    if (selectionStart < body.length()) {//从中间开始删除
-                        body = body.substring(0, selectionStart);
+                    if (selectionStart < body.length()) {//从中间进行删除
+                        body = body.substring(0, selectionStart); // 把光标后面的东西全部暂时忽略掉，方便后面删除
                     }
-                    int i = body.lastIndexOf("[");
-                    if (i != -1) {
-                        String tempStr = body.substring(i, selectionStart);//截取表情码
-                        if (EmoJiUtils.getAllRes().contains(tempStr)) {//校验是否是表情
-                            et_input_container.getEditableText().delete(i, selectionStart);//删除表情
+                    int lastIndexOf = body.lastIndexOf("["); // 获取到最后一个表情
+                    if (lastIndexOf != -1) {
+                        String tempStr = body.substring(lastIndexOf, selectionStart);//截取表情码
+                        if (EmoJiUtils.getAllResList().contains(tempStr)) {//校验是否是表情
+                            et_input_container.getEditableText().delete(lastIndexOf, selectionStart);//删除表情
                         } else {
                             et_input_container.getEditableText().delete(selectionStart - 1, selectionStart);//删除一个字符
                         }
                     } else {
-                        et_input_container.getEditableText().delete(selectionStart - 1, selectionStart);
+                        et_input_container.getEditableText().delete(selectionStart - 1, selectionStart);//删除一个字符
                     }
                 } else {//非表情
-                    et_input_container.getEditableText().delete(selectionStart - 1, selectionStart);
+                    et_input_container.getEditableText().delete(selectionStart - 1, selectionStart);//删除一个字符
                 }
             }
         }

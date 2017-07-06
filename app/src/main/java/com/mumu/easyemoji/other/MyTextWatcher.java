@@ -9,12 +9,12 @@ import android.widget.EditText;
  * Created by MuMu on 2016/11/12/0012.
  */
 
-public class EditWatcher implements TextWatcher {
+public class MyTextWatcher implements TextWatcher {
 
     private View view;
     private EditText editText;
 
-    public EditWatcher(View view, EditText editText) {
+    public MyTextWatcher(View view, EditText editText) {
         this.view = view;
         this.editText = editText;
     }
@@ -35,12 +35,5 @@ public class EditWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-//        int editStart = editText.getSelectionStart();
-//        int editEnd = editText.getSelectionEnd();
-//        if (editEnd - editStart > 0) {
-//            view.setVisibility(View.VISIBLE);
-//        } else {
-//            view.setVisibility(View.GONE);
-//        }
     }
 }

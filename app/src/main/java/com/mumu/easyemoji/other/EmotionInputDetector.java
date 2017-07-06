@@ -56,7 +56,7 @@ public class EmotionInputDetector {
 
     public EmotionInputDetector bindToEditText(EditText editText) {
         mEditText = editText;
-        editText.addTextChangedListener(new EditWatcher(mSendButton, editText));
+        editText.addTextChangedListener(new MyTextWatcher(mSendButton, editText)); // 发送按钮的变换
         mEditText.requestFocus();
         mEditText.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -115,6 +115,9 @@ public class EmotionInputDetector {
         return this;
     }
 
+    /*
+     * 拦截返回键，收起键盘
+     */
     public boolean interceptBackPress() {
         mEmojiView.setChecked(!mEmojiView.isChecked());
         if (mEmotionLayout.isShown()) {
@@ -143,10 +146,13 @@ public class EmotionInputDetector {
         }
     }
 
+    /*
+     * 锁定 聊天消息 lv 的高度
+     */
     private void lockContentHeight() {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mContentView.getLayoutParams();
         params.height = mContentView.getHeight();
-        params.weight = 0.0F;
+        params.weight = 0.0F; //
     }
 
     private void unlockContentHeightDelayed() {
