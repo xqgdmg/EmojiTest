@@ -8,13 +8,14 @@ import java.util.List;
 
 /**
  * Created by lq on 16/10/11.
+ * 单个表情包的
  */
 
-public class EmoJiContainerAdapter extends PagerAdapter {
+public class ExpressPagerAdapterAdapter extends PagerAdapter {
 
     private List<View> views;
 
-    public EmoJiContainerAdapter(List<View> views) {
+    public ExpressPagerAdapterAdapter(List<View> views) {
         this.views = views;
     }
 
@@ -37,6 +38,5 @@ public class EmoJiContainerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(View arg0, int arg1, Object arg2) {
         ((ViewPager) arg0).removeView(views.get(arg1));
-
     }
 }

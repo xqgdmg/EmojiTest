@@ -14,8 +14,7 @@ import android.widget.ListView;
 import com.mumu.easyemoji.other.CircleIndicator;
 import com.mumu.easyemoji.other.EmoJiHelper;
 import com.mumu.easyemoji.other.EmotionInputDetector;
-import com.mumu.easyemoji.adapter.EmoJiContainerAdapter;
-import com.mumu.easyemoji.utils.KeyBoardUtils;
+import com.mumu.easyemoji.adapter.ExpressPagerAdapterAdapter;
 import com.mumu.easyemoji.R;
 
 /**
@@ -61,8 +60,10 @@ public class SingleEmotionActivity extends AppCompatActivity {
                 .bindToContent(mLvChatContent) // 聊天消息 lv
                 .bindToEmotionButton(mCbEmoJiView); // 表情按钮
 
+         // 第一个参数 type 表示获取到第几个表情包
         EmoJiHelper emojiHelper = new EmoJiHelper(1, mContext, mEtInputContainer);
-        EmoJiContainerAdapter mAdapter = new EmoJiContainerAdapter(emojiHelper.getPagers());
+
+        ExpressPagerAdapterAdapter mAdapter = new ExpressPagerAdapterAdapter(emojiHelper.getPagerViews());
         viewPager.setAdapter(mAdapter);
         mCircleIndicator.setViewPager(viewPager);
     }

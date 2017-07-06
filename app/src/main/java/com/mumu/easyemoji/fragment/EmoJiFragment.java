@@ -12,7 +12,7 @@ import android.widget.EditText;
 import com.mumu.easyemoji.other.EmoJiHelper;
 import com.mumu.easyemoji.R;
 import com.mumu.easyemoji.activity.MultiEmotionActivity;
-import com.mumu.easyemoji.adapter.EmoJiContainerAdapter;
+import com.mumu.easyemoji.adapter.ExpressPagerAdapterAdapter;
 import com.mumu.easyemoji.other.CircleIndicator;
 
 /**
@@ -48,7 +48,7 @@ public class EmoJiFragment extends Fragment {
         ViewPager viewPager = (ViewPager) getView().findViewById(R.id.viewPager);
         CircleIndicator circleIndicator = (CircleIndicator) getView().findViewById(R.id.circleIndicator);
         EmoJiHelper emojiHelper = new EmoJiHelper(type, getContext(), et_input_container);
-        EmoJiContainerAdapter mAdapter = new EmoJiContainerAdapter(emojiHelper.getPagers());
+        ExpressPagerAdapterAdapter mAdapter = new ExpressPagerAdapterAdapter(emojiHelper.getPagerViews());
         viewPager.setAdapter(mAdapter);
         circleIndicator.setViewPager(viewPager);
     }

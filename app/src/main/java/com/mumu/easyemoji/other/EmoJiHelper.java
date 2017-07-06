@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by lq on 2016/10/28.
+ * 表情包帮助类
  */
 
 public class EmoJiHelper {
@@ -33,10 +34,13 @@ public class EmoJiHelper {
         this.et_input_container = et_input;
         this.type = type;
         this.emojiResList = EmoJiUtils.getResTitleList(type);
-        getPagers();
+        getPagerViews();
     }
 
-    public List<View> getPagers() {
+    /*
+     *
+     */
+    public List<View> getPagerViews() {
         List<View> pageViewList = new ArrayList<>();
         //每一页表情的view
         mPageNum = (int) Math.ceil(emojiResList.size() * 1.0f / EMOJI_PAGE_COUNT);
@@ -46,6 +50,9 @@ public class EmoJiHelper {
         return pageViewList;
     }
 
+    /*
+     * 获取每页的表情视图（同一个表情包内）
+     */
     public View getGridView(int position) {
         List mEmoJiList = new ArrayList<>();
         View containerView = View.inflate(mContext, R.layout.container_gridview, null);
