@@ -1,7 +1,9 @@
 package com.mumu.easyemoji.other;
 
 import android.content.Context;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -71,6 +73,10 @@ public class EmoJiHelper {
          */
         final ExpressAdapter mExpressAdapter = new ExpressAdapter(type, mContext, position, mEmoJiList);
         eg_gridView.setAdapter(mExpressAdapter);
+
+        /*
+         * 点击每个表情
+         */
         eg_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionIndex, long id) {
@@ -86,21 +92,27 @@ public class EmoJiHelper {
     }
 
     /**
-     * 显示EmoJi表情
+     * 显示EmoJi表情,关键是解析表情
      *
-     * @param fileName
+     * @param titleName
      */
-    private void showEmoJi(String fileName) {
+    private void showEmoJi(String titleName) {
+
         int selectionStart = et_input_container.getSelectionStart();
 
-        String body = et_input_container.getText().toString();
+         // 第一次点击body是 "",
+        String body = et_input_container.getText().toString(); // 这个东西是什么
+        Log.e("body",body); // [悲催][坚持住][好喜欢][泪流满面][泪流满面][泪流满面]
         StringBuilder stringBuilder = new StringBuilder(body);
-        stringBuilder.insert(selectionStart, fileName);
+        stringBuilder.insert(selectionStart, titleName); // 每点击一次，stringBuilder 加上后面的表情标题
+        Log.e("stringBuilder",stringBuilder.toString()); // stringBuilder: [好囧][不好意思][好囧][抠鼻屎]
 
-        et_input_container.setText(
-                EmoJiUtils.parseEmoJi(type, mContext, stringBuilder.toString())
-        );
-        et_input_container.setSelection(selectionStart + fileName.length());
+         // 根据EditText的内容，解析表情
+        SpannableString spannableString = EmoJiUtils.parseEmoJi(type, mContext, stringBuilder.toString());
+        Log.e("spannableString",spannableString.toString()); // spannableString: [好囧][不好意思][好囧][抠鼻屎]
+        et_input_container.setText(spannableString);
+
+        et_input_container.setSelection(selectionStart + titleName.length());
     }
 
     /**

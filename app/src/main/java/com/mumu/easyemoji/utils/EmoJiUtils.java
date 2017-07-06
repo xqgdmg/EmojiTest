@@ -470,12 +470,12 @@ public class EmoJiUtils {
     /**
      * 解析 EmoJi表情
      */
-    public static SpannableString parseEmoJi(int type, Context context, String content) {
+    public static SpannableString parseEmoJi(int type, Context context, String etContent) {
 
-        SpannableString spannable = new SpannableString(content);
+        SpannableString spannable = new SpannableString(etContent);
         String reg = "\\[[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]";//校验表情正则？？？？？？？？？
         Pattern pattern = Pattern.compile(reg);
-        Matcher matcher = pattern.matcher(content);
+        Matcher matcher = pattern.matcher(etContent);
 
         while (matcher.find()) {
             String regEmoJi = matcher.group();//获取匹配到的emoji字符串
@@ -486,7 +486,7 @@ public class EmoJiUtils {
             if (resId != null) {
                 Drawable drawable = context.getResources().getDrawable(resId);
                 drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-                ImageSpan imageSpan = new ImageSpan(drawable, content);
+                ImageSpan imageSpan = new ImageSpan(drawable, etContent);
                 spannable.setSpan(imageSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
