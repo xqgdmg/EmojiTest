@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ExpressAdapter extends ArrayAdapter<String> {
 
-
     private int type = 0;
 
     public ExpressAdapter(int type, Context context, int resource, List<String> objects) {

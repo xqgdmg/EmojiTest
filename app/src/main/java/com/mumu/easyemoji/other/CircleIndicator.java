@@ -20,8 +20,8 @@ import com.mumu.easyemoji.R;
 
 /**
  * Created by lq on 16/10/14.
+ * 指示器
  */
-
 public class CircleIndicator extends LinearLayout {
 
     private final static int DEFAULT_INDICATOR_WIDTH = 5;
