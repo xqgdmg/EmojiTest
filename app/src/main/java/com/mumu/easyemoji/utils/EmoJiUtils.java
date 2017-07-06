@@ -469,6 +469,8 @@ public class EmoJiUtils {
 
     /**
      * 解析 EmoJi表情
+     * 其实返回的是图片
+     * 打印显示的却是文字
      */
     public static SpannableString parseEmoJi(int type, Context context, String etContent) {
 

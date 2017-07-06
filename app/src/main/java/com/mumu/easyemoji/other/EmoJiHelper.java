@@ -93,8 +93,6 @@ public class EmoJiHelper {
 
     /**
      * 显示EmoJi表情,关键是解析表情
-     *
-     * @param titleName
      */
     private void showEmoJi(String titleName) {
 
@@ -107,7 +105,7 @@ public class EmoJiHelper {
         stringBuilder.insert(selectionStart, titleName); // 每点击一次，stringBuilder 加上后面的表情标题
         Log.e("stringBuilder",stringBuilder.toString()); // stringBuilder: [好囧][不好意思][好囧][抠鼻屎]
 
-         // 根据EditText的内容，解析表情
+         // 根据EditText的内容，解析表情，解析出来的是图片
         SpannableString spannableString = EmoJiUtils.parseEmoJi(type, mContext, stringBuilder.toString());
         Log.e("spannableString",spannableString.toString()); // spannableString: [好囧][不好意思][好囧][抠鼻屎]
         et_input_container.setText(spannableString);
