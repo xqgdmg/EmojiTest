@@ -14,14 +14,16 @@ import java.util.List;
 
 /**
  * Created by lq on 16/10/11.
+ * ArrayAdapter 单个表情
+ * 展示每一个表情 ImageView
  */
 
-public class EmoJiAdapter extends ArrayAdapter<String> {
+public class ExpressAdapter extends ArrayAdapter<String> {
 
 
     private int type = 0;
 
-    public EmoJiAdapter(int type, Context context, int resource, List<String> objects) {
+    public ExpressAdapter(int type, Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         this.type = type;
     }
@@ -33,8 +35,11 @@ public class EmoJiAdapter extends ArrayAdapter<String> {
         }
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_emoji);
+
+         // 获取图片的路径
         String fileName = getItem(position);
         Integer resId = EmoJiUtils.getEmoJiMap(type).get(fileName);
+
         if (resId != null) {
             Drawable drawable = getContext().getResources().getDrawable(resId);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth() / 2, drawable.getIntrinsicHeight() / 2);

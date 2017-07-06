@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.mumu.easyemoji.view.ExpandGridView;
 import com.mumu.easyemoji.R;
-import com.mumu.easyemoji.adapter.EmoJiAdapter;
+import com.mumu.easyemoji.adapter.ExpressAdapter;
 import com.mumu.easyemoji.utils.EmoJiUtils;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class EmoJiHelper {
     }
 
     /*
-     *
+     * 所有表情的视图（多页表情的view）
      */
     public List<View> getPagerViews() {
         List<View> pageViewList = new ArrayList<>();
@@ -63,15 +63,18 @@ public class EmoJiHelper {
             emojiPageList = emojiResList.subList((position - 1) * EMOJI_PAGE_COUNT, emojiResList.size());
         else
             emojiPageList = emojiResList.subList((position - 1) * EMOJI_PAGE_COUNT, EMOJI_PAGE_COUNT * position);
-        mEmoJiList.addAll(emojiPageList);
-        mEmoJiList.add("[删除]");
+            mEmoJiList.addAll(emojiPageList); // 添加表情 View
+            mEmoJiList.add("[删除]"); // 每页最后一个都是删除键
 
-        final EmoJiAdapter mEmoJiAdapter = new EmoJiAdapter(type, mContext, position, mEmoJiList);
-        eg_gridView.setAdapter(mEmoJiAdapter);
+        /*
+         * 视图展现的形式
+         */
+        final ExpressAdapter mExpressAdapter = new ExpressAdapter(type, mContext, position, mEmoJiList);
+        eg_gridView.setAdapter(mExpressAdapter);
         eg_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int positionIndex, long id) {
-                String titleName = mEmoJiAdapter.getItem(positionIndex); // 获取到表情标题
+                String titleName = mExpressAdapter.getItem(positionIndex); // 获取到表情标题
                 if ( !"[删除]".equals(titleName)) { // 不是删除键，显示表情
                     showEmoJi(titleName);
                 } else { // 删除文字或者表情
