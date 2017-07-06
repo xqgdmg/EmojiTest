@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mumu.easyemoji.other.CircleIndicator;
 import com.mumu.easyemoji.other.EmoJiHelper;
@@ -39,6 +41,9 @@ public class SingleEmotionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emotion_single);
         mContext = this;
+
+        Integer i = (Integer) null;
+        Log.e("haha",i + "");
 
         initView();
     }
